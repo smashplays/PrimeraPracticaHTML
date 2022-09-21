@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario Maquinaria Industrial</title>
+  </head>
+  <body>
+    <figure>
+      <a href="aboutus.html"
+        ><img src="img/logo.png" alt="logo" width="80"
+      /></a>
+    </figure>
+
+    <h1>Formulario Maquinaria Industrial</h1>
+
+    <div>
+      <ul>
+        <li><a href="form.html">Formulario</a></li>
+        <li><a href="table.html">Tabla</a></li>
+        <li><a href="gallery.html">Galeria</a></li>
+        <li><a href="definition.html">Definicion</a></li>
+        <li><a href="aboutus.html">Sobre nosotros</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <fieldset>
+        <legend>Formulario</legend>
+        <form>
+          <div>
+            <label for="element_name"
+              ><strong>Nombre del Elemento: </strong></label
+            >
+            <input type="text" name="element_name" id="element_name" />
+          </div>
+
+          <div>
+            <label for="element_desc"
+              ><strong>Descripción del Elemento: </strong></label
+            >
+            <textarea
+              name="element_desc"
+              id="element_desc"
+              cols="10"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="serial"><strong>Número de serie: </strong></label>
+            <input type="number" name="serial" id="serial" />
+          </div>
+
+          <div>
+            <label for="state"><strong>Estado: </strong></label>
+            <div>
+              <label for="active">
+                Activo:
+                <input type="checkbox" name="state" id="state" value="active" />
+              </label>
+
+              <label for="inactive">
+                Inactivo:
+                <input
+                  type="checkbox"
+                  name="state"
+                  id="state"
+                  value="inactive"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label for="priority"><strong>Prioridad: </strong> </label>
+            <div>
+              <input type="radio" id="high" name="priority" value="high" />
+              <label for="high">Alta</label><br />
+              <input type="radio" id="medium" name="priority" value="medium" />
+              <label for="medium">Media</label><br />
+              <input type="radio" id="low" name="priority" value="low" />
+              <label for="low">Baja</label>
+            </div>
+          </div>
+
+          <div>
+            <input type="submit" value="Enviar" />
+          </div>
+        </form>
+      </fieldset>
+    </div>
+    <footer>&copy; Jesús Terrés Hernández 2ºDAW</footer>
+  </body>
+</html>
