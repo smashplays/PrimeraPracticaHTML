@@ -28,21 +28,21 @@
     <div>
       <fieldset>
         <legend>Formulario</legend>
-        <form>
+        <form method="POST" action="./ws/createElement.php">
           <div>
-            <label for="element_name"
+            <label for="name"
               ><strong>Nombre del Elemento: </strong></label
             >
-            <input type="text" name="element_name" id="element_name" />
+            <input type="text" name="name" id="name" />
           </div>
 
           <div>
-            <label for="element_desc"
+            <label for="description"
               ><strong>Descripción del Elemento: </strong></label
             >
             <textarea
-              name="element_desc"
-              id="element_desc"
+              name="description"
+              id="description"
               cols="10"
               rows="3"
             ></textarea>
@@ -54,21 +54,11 @@
           </div>
 
           <div>
-            <label for="state"><strong>Estado: </strong></label>
+            <label for="status"><strong>Estado: </strong></label>
             <div>
               <label for="active">
                 Activo:
-                <input type="checkbox" name="state" id="state" value="active" />
-              </label>
-
-              <label for="inactive">
-                Inactivo:
-                <input
-                  type="checkbox"
-                  name="state"
-                  id="state"
-                  value="inactive"
-                />
+                <input type="checkbox" name="status" id="status" value="active" checked/>
               </label>
             </div>
           </div>
@@ -76,11 +66,11 @@
           <div>
             <label for="priority"><strong>Prioridad: </strong> </label>
             <div>
-              <input type="radio" id="high" name="priority" value="high" />
+              <input type="radio" id="priority" name="priority" value="high" />
               <label for="high">Alta</label><br />
-              <input type="radio" id="medium" name="priority" value="medium" />
+              <input type="radio" id="priority" name="priority" value="medium" />
               <label for="medium">Media</label><br />
-              <input type="radio" id="low" name="priority" value="low" />
+              <input type="radio" id="priority" name="priority" value="low" />
               <label for="low">Baja</label>
             </div>
           </div>
