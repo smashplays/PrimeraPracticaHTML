@@ -1,7 +1,5 @@
 <?php
 
-include '../interfaces/IToJson.php';
-
 class Element implements IToJson
 {
     private $name;

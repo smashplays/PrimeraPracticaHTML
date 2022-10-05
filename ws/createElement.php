@@ -1,7 +1,7 @@
 <?php
 
-include("./interfaces/IToJson.php");
-include('./models/Element.php');
+require_once("interfaces/IToJson.php");
+require_once("models/Element.php");
 
 $name = $_POST["name"];
 $description = $_POST["description"];
