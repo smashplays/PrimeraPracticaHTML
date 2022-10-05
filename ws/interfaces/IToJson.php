@@ -1,5 +1,4 @@
 <?php
-
 interface IToJson{
-    function toJson($object);
+    function toJson($arr);
 }

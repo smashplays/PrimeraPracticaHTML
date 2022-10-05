@@ -1,6 +1,6 @@
 <?php
 
-include './models/Element.php';
+include '../interfaces/IToJson.php';
 
 class Element implements IToJson{
     private $name;
@@ -9,7 +9,7 @@ class Element implements IToJson{
     private $status;
     private $priority;
 
-    public function __consruct($name, $description, $serial, $status, $priority)
+    public function __construct($name, $description, $serial, $status, $priority)
     {
         $this->name = $name;
         $this->description = $description;
@@ -58,11 +58,11 @@ class Element implements IToJson{
         $this->priority = $priority;
     }
 
-    public function toJson($object)
+    public function toJson($arr)
     {
-        $json = json_encode($object);
-        $file = 'element.json';
+        $json = json_encode($arr);
+        $file = 'element.txt';
         file_put_contents($file, $json, FILE_APPEND);
-        echo $json;
+        return $json;
     }
 }
