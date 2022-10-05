@@ -2,7 +2,8 @@
 
 include '../interfaces/IToJson.php';
 
-class Element implements IToJson{
+class Element implements IToJson
+{
     private $name;
     private $description;
     private $serial;
@@ -18,43 +19,53 @@ class Element implements IToJson{
         $this->priority = $priority;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setName($name){
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function getDescription(){
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function setDescription($description){
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
-    public function getSerial(){
+    public function getSerial()
+    {
         return $this->serial;
     }
 
-    public function setSerial($serial){
+    public function setSerial($serial)
+    {
         $this->serial = $serial;
     }
 
-    public function getStatus(){
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function setStatus($status){
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
 
-    public function getPriority(){
+    public function getPriority()
+    {
         return $this->priority;
     }
 
-    public function setPriority($priority){
+    public function setPriority($priority)
+    {
         $this->priority = $priority;
     }
 

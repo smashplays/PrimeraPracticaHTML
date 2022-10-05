@@ -30,9 +30,7 @@
         <legend>Formulario</legend>
         <form method="POST" action="ws/createElement.php">
           <div>
-            <label for="name"
-              ><strong>Nombre del Elemento: </strong></label
-            >
+            <label for="name"><strong>Nombre del Elemento: </strong></label>
             <input type="text" name="name" id="name" />
           </div>
 
@@ -58,7 +56,12 @@
             <div>
               <label for="status">
                 Activo:
-                <input type="checkbox" name="status" id="status" value="active"/>
+                <input
+                  type="checkbox"
+                  name="status"
+                  id="status"
+                  value="active"
+                />
               </label>
             </div>
           </div>
@@ -68,7 +71,12 @@
             <div>
               <input type="radio" id="priority" name="priority" value="high" />
               <label for="high">Alta</label><br />
-              <input type="radio" id="priority" name="priority" value="medium" />
+              <input
+                type="radio"
+                id="priority"
+                name="priority"
+                value="medium"
+              />
               <label for="medium">Media</label><br />
               <input type="radio" id="priority" name="priority" value="low" />
               <label for="low">Baja</label>
