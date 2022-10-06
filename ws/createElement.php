@@ -10,4 +10,6 @@ $status = $_POST["status"];
 $priority = $_POST["priority"];
 
 $element = new Element($name, $description, $serial, $status, $priority);
-echo $element->toJson($_POST);
+$json = $element->toJson($_POST);
+echo $json;
+$element->toTxt($json);

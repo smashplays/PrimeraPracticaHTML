@@ -70,8 +70,11 @@ class Element implements IToJson
     public function toJson($arr)
     {
         $json = json_encode($arr);
+        return $json;
+    }
+
+    public function toTxt($json){
         $file = 'element.txt';
         file_put_contents($file, $json, FILE_APPEND);
-        return $json;
     }
 }
