@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tabla de elementos industriales</title>
+    <script src="./js/functions.js"></script>
   </head>
   <body>
     <figure>
@@ -26,27 +27,15 @@
     </div>
 
     <div>
-      <table border="1">
+      <table border="1" id="table">
+        <input type="text" name="filter" id="filter" placeholder="Filtrar" onkeyup="filterTable(this)">
         <tr>
+          <th>Acciones</th>
           <th>Nombre</th>
           <th>Descripción</th>
           <th>Número de serie</th>
           <th>Estado</th>
           <th>Prioridad</th>
-        </tr>
-        <tr>
-          <td>Grua</td>
-          <td>Grua de la fabrica</td>
-          <td>1</td>
-          <td>Activo</td>
-          <td>Alta</td>
-        </tr>
-        <tr>
-          <td>Sistema frigorifico</td>
-          <td>Sistema frigorifico de la fabrica</td>
-          <td>2</td>
-          <td>Activo</td>
-          <td>Alta</td>
         </tr>
       </table>
     </div>
