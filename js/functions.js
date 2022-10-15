@@ -1,20 +1,20 @@
 const ObjectArray = [{
         "name": "Control de humo",
-        "description": "Los sensores de humo son capaces de detectar el humo de \n un lugar a tiempo",
+        "description": "Los sensores de humo son capaces de detectar el humo de un lugar a tiempo",
         "serial": "1582",
         "status": "Activo",
         "priority": "Alta"
     },
     {
         "name": "Medidor de presión",
-        "description": "Los sensores medidores de presión son muy utilizados en el \n sector agricola para conocer, por ejemplo el flujo de agua \n de un lugar y para enviar una notificación a los equipos \n responsables cuando algo necesite ser corregido ",
+        "description": "Los sensores medidores de presión son muy utilizados en el sector agricola para conocer, por ejemplo el flujo de agua de un lugar y para enviar una notificación a los equipos responsables cuando algo necesite ser corregido ",
         "serial": "1978",
         "status": "Inactivo",
         "priority": "Media"
     },
     {
         "name": "Control de la humedad",
-        "description": "Permiten tener controlados factores como el clima o el \n almacenamiento de productos perecederos",
+        "description": "Permiten tener controlados factores como el clima o el almacenamiento de productos perecederos",
         "serial": "1956",
         "status": "Activo",
         "priority": "Alta"
@@ -28,16 +28,18 @@ window.onload = function () {
     generateTable(ObjectArray);
 }
 
-function generateTable(data) {
-    let element = document.querySelectorAll("tr td");
-    Array.prototype.forEach.call( element, function( node ) {
-        node.parentNode.removeChild( node );
-    });
-    const table = document.getElementById('table');
+function deleteTable() {
+    const element = document.querySelectorAll('tbody .row');
+    for (let i = 0; i < element.length; i++) {
+        element[i].remove();
+    }
+}
 
+function generateTable(data) {
+    const table = document.querySelector('tbody');
     for (let i = 0; i < data.length; i++) {
         let row = `<tr id="row${i}" class="row">
-                        <td><button id="${i}" class="button" onclick="remove(this)">X</button></td>
+                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button></td>
 						<td>${data[i].name}</td>
 						<td>${data[i].description}</td>
 						<td>${data[i].serial}</td>
@@ -48,9 +50,10 @@ function generateTable(data) {
     }
 }
 
-function remove(button) {
-    let number = button.id;
-    let row = document.getElementById('row' + number);
+
+function removeRow(button) {
+    const number = button.id;
+    const row = document.getElementById('row' + number);
     row.remove();
 }
 
@@ -71,7 +74,11 @@ function filterTable(filter) {
                 data.priority.toLowerCase().includes(search)
             );
         });
+        deleteTable();
         generateTable(filteredObjects);
     }
+    else{
+        deleteTable();
+        generateTable(ObjectArray);
+    }
 }
-
