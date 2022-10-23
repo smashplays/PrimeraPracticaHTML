@@ -37,23 +37,21 @@ try {
             break;
     }
 
-    $results = [];
+    $results = $database->modifyElement($name, $description, $serial, $status, $priority, $id);
 
-    $results["success"] = null;
-    $results["message"] = null;
-    $results["data"] = $database->modifyElement($name, $description, $serial, $status, $priority, $id);
-
-    if ($id !== null && !empty($results["data"])) {
-        $results["success"] = true;
-        $results["message"] = "Elemento modificado correctamente";
+    if ($id !== null && !empty($results)) {
+        print_r($database->responseJson(
+            true,
+            "Elemento modificado correctamente",
+            $results
+        ));
     } else {
-        $results["success"] = false;
-        $results["message"] = "Los elementos no se han podido modificar, comprueba los datos introducidos";
-        $results["data"] = null;
+        print_r($database->responseJson(
+            false,
+            "Los elementos no se han podido modificar, comprueba los datos introducidos",
+            null
+        ));
     }
-
-    $response = json_encode($results, JSON_PRETTY_PRINT);
-    print_r($response);
 } catch (Exception $e) {
     echo "Ha fallado la conexión por " . $e->getMessage();
 }

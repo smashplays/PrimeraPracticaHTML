@@ -37,17 +37,20 @@ try {
             break;
     }
 
-    $results = [];
-    $results["success"] = true;
-    $results["message"] = "Elementos creados correctamente";
-    $results["data"] = $database->createElement($name, $description, $serial, $status, $priority);
-    if (empty($results["data"])) {
-        $results["success"] = false;
-        $results["message"] = "Los elementos no se han podido crear, comprueba los datos introducidos";
+    $results = $database->createElement($name, $description, $serial, $status, $priority);
+    if (!empty($results)) {
+        print_r($database->responseJson(
+            true,
+            "Elemento creado correctamente",
+            $results
+        ));
+    } else {
+        print_r($database->responseJson(
+            false,
+            "Los elementos no se han podido crear, comprueba los datos introducidos",
+            $results
+        ));
     }
-
-    $response = json_encode($results, JSON_PRETTY_PRINT);
-    print_r($response);
 } catch (Exception $e) {
     echo "Ha fallado la conexión por " . $e->getMessage();
 }

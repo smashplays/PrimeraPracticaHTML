@@ -85,4 +85,15 @@ class DataBase
             return null;
         }
     }
+
+    public function responseJson($success, $message, $data)
+    {
+        $results = [];
+        $results["success"] = $success;
+        $results["message"] = $message;
+        $results["data"] = $data;
+
+        $response = json_encode($results, JSON_PRETTY_PRINT);
+        return $response;
+    }
 }
