@@ -39,7 +39,7 @@ function generateTable(data) {
     const table = document.querySelector('tbody');
     for (let i = 0; i < data.length; i++) {
         let row = `<tr id="row${i}" class="row">
-                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button></td>
+                        <td><button id="${i}" class="button" onclick="removeRow(this)">Delete</button></td>
 						<td>${data[i].name}</td>
 						<td>${data[i].description}</td>
 						<td>${data[i].serial}</td>

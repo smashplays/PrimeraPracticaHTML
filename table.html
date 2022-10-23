@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/table.css">
     <title>Tabla de elementos industriales</title>
     <script src="./js/functions.js"></script>
   </head>
@@ -14,9 +16,7 @@
       /></a>
     </figure>
 
-    <h1>Tabla de elementos industriales</h1>
-
-    <div>
+    <nav id="navBar">
       <ul>
         <li><a href="form.html">Formulario</a></li>
         <li><a href="table.html">Tabla</a></li>
@@ -24,9 +24,10 @@
         <li><a href="definition.html">Definicion</a></li>
         <li><a href="aboutus.html">Sobre nosotros</a></li>
       </ul>
-    </div>
+    </nav>
 
-    <div>
+    <div id="pageContent">
+      <h1>Tabla de elementos industriales</h1>
       <input type="text" name="filter" id="filter" placeholder="Filtrar" onkeyup="filterTable(this)">
       <table border="1">
         <tr>
@@ -38,7 +39,7 @@
           <th>Prioridad</th>
         </tr>
       </table>
+      <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
     </div>
-    <footer>&copy; Jesús Terrés Hernández 2ºDAW</footer>
   </body>
 </html>
