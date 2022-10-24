@@ -44,6 +44,18 @@ class DataBase
         }
     }
 
+    public function getQueryResult($query, $id)
+    {
+        try {
+            $consulta = $this->pdo->prepare($query);
+            $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+            $consulta->execute();
+            return $consulta->fetchColumn();
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
     public function createElement($name, $description, $serial, $status, $priority)
     {
         try {
@@ -52,7 +64,7 @@ class DataBase
 
             $consulta->bindParam(':name', $name, PDO::PARAM_STR);
             $consulta->bindParam(':description', $description, PDO::PARAM_STR);
-            $consulta->bindParam(':serial', $serial, PDO::PARAM_INT);
+            $consulta->bindParam(':serial', $serial, PDO::PARAM_STR);
             $consulta->bindParam(':status', $status, PDO::PARAM_STR);
             $consulta->bindParam(':priority', $priority, PDO::PARAM_STR);
             $consulta->execute();
@@ -76,7 +88,7 @@ class DataBase
             $consulta->bindParam(':id', $id, PDO::PARAM_INT);
             $consulta->bindParam(':name', $name, PDO::PARAM_STR);
             $consulta->bindParam(':description', $description, PDO::PARAM_STR);
-            $consulta->bindParam(':serial', $serial, PDO::PARAM_INT);
+            $consulta->bindParam(':serial', $serial, PDO::PARAM_STR);
             $consulta->bindParam(':status', $status, PDO::PARAM_STR);
             $consulta->bindParam(':priority', $priority, PDO::PARAM_STR);
             $consulta->execute();
