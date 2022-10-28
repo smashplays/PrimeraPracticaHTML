@@ -13,11 +13,11 @@ th{
 #pageContent {
     background-color: #FD7E1D;
     width: 100%;
-    height: 280px;
+    height: 350px;
     border-radius: 15px;
 }
 
-#pageContent h1,
+h1,
 #pageContent h2 {
     color: #032542;
 }
@@ -26,22 +26,49 @@ th{
     color: #033E64;
 }
 
-.row{
-    color: #033E64;
+#filter{
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+#filter:hover{
+    border: 3px solid #033E64;
+}
+
+::placeholder{
+    color: #032542;
+    opacity: 1;
+}
+
+table{
+    margin-top: 25px;
+}
+
+tr th{
+    background-color: #032542;
+    color: white;
+    border: 2px dashed #033E64;
+}
+
+tr td{
+    background-color: #033E64;
+    color: white;
+    border: 3px dotted #032542;
 }
 
 .row td>button {
     color: black;
-    background-color: red;
+    background-color: #C9302C;
     padding: 5px;
     margin: 5px;
 }
 
 #footer {
     color: white;
+    text-align: center;
     background-color: #033E64;
     text-transform: uppercase;
     border-radius: 15px;
-    /* margin-top: 165px; */
+    margin-top: 80px;
     width: 100%;
 }

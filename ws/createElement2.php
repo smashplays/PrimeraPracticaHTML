@@ -7,7 +7,7 @@ try {
 
     $name = "Ejemplo";
     $description = "Ejemplo Descripcion";
-    $serial = 0;
+    $serial = "0";
     $status = $_POST["status"] ?? 'inactive';
     $priority = $_POST["priority"] ?? 'low';
 
@@ -22,7 +22,7 @@ try {
     if (isset($_POST["serial"])) {
         $serial = $_POST["serial"];
     }
-    switch ($_POST["priority"]) {
+    switch ($priority) {
         case "low":
             $priority = "low";
             break;

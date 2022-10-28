@@ -10,7 +10,7 @@
   </head>
   <body>
     <figure>
-      <a href="aboutus.html"
+      <a href="#"
         ><img src="img/logo.png" alt="logo" width="80"
       /></a>
     </figure>
@@ -25,48 +25,42 @@
       </ul>
     </nav>
 
+    <h1>Formulario Maquinaria Industrial</h1>
+
     <div id="pageContent">
-      <h1>Formulario Maquinaria Industrial</h1>
       <form method="POST" action="ws/createElement2.php">
         <div>
-          <label for="name"><strong>Nombre del Elemento: </strong></label>
-          <input type="text" name="name" id="name" />
+          <input type="text" name="name" id="name" placeholder="Nombre del Elemento"/>
         </div>
 
         <div>
-          <label for="description"
-            ><strong>Descripción del Elemento: </strong></label
-          >
           <textarea
             name="description"
             id="description"
-            cols="10"
+            cols="18"
             rows="3"
+            placeholder="Descripción del Elemento"
           ></textarea>
         </div>
 
         <div>
-          <label for="serial"><strong>Número de serie: </strong></label>
-          <input type="number" name="serial" id="serial" />
+          <input type="text" name="serial" id="serial" placeholder="Número de serie"/>
         </div>
 
-        <div>
-          <label for="status"><strong>Estado: </strong></label>
-          <div>
-            <label for="active"> Activo: </label>
-            <input type="checkbox" name="status" id="status" value="active" />
-          </div>
+        <div id="statusBox">
+          <label for="status"><span class="activeBold">Activo:</span></label>
+          <input type="checkbox" name="status" id="status" value="active" />
         </div>
 
-        <div>
-          <label for="priority"><strong>Prioridad: </strong> </label>
+        <div id="priorityBox">
+          <label for="priority"><span class="priorityBold">Prioridad:</span></label>
           <div>
             <input type="radio" id="priority" name="priority" value="high" />
-            <label for="high">Alta</label><br />
+            <label for="high" id="high">Alta</label><br />
             <input type="radio" id="priority" name="priority" value="medium" />
-            <label for="medium">Media</label><br />
+            <label for="medium" id="medium">Media</label><br />
             <input type="radio" id="priority" name="priority" value="low" />
-            <label for="low">Baja</label>
+            <label for="low" id="low">Baja</label>
           </div>
         </div>
 
@@ -74,7 +68,7 @@
           <input type="submit" value="Enviar" id="submit" />
         </div>
       </form>
-      <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
     </div>
+    <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
   </body>
 </html>

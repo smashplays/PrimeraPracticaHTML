@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/table.css">
     <title>Tabla de elementos industriales</title>
-    <script src="./js/functions.js"></script>
+    <script src="./js/functionsFetch.js"></script>
+    <!-- <script src="./js/functions.js"></script> -->
   </head>
   <body>
     <figure>
@@ -26,10 +27,11 @@
       </ul>
     </nav>
 
+    <h1>Tabla de elementos industriales</h1>
+
     <div id="pageContent">
-      <h1>Tabla de elementos industriales</h1>
       <input type="text" name="filter" id="filter" placeholder="Filtrar" onkeyup="filterTable(this)">
-      <table border="1">
+      <table id="table">
         <tr>
           <th>Acciones</th>
           <th>Nombre</th>
@@ -39,7 +41,7 @@
           <th>Prioridad</th>
         </tr>
       </table>
-      <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
     </div>
+    <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
   </body>
 </html>
