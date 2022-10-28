@@ -5,39 +5,50 @@ require_once 'Database.php';
 try {
     $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
 
-    $name = "Ejemplo";
-    $description = "Ejemplo Descripcion";
-    $serial = "0";
-    $status = $_POST["status"] ?? 'inactive';
+    $status = $_POST["status"] ?? 'Inactivo';
     $priority = $_POST["priority"] ?? 'low';
 
-    if (isset($_POST["name"])) {
+    if (!empty($_POST["name"])) {
         $name = $_POST["name"];
+    } else{
+        $name = "Ejemplo";
     }
 
-    if (isset($_POST["description"])) {
+    if (!empty($_POST["description"])) {
         $description = $_POST["description"];
+    } else{
+        $description = "Ejemplo Descripcion";
     }
 
-    if (isset($_POST["serial"])) {
+    if (!empty($_POST["serial"])) {
         $serial = $_POST["serial"];
+    } else{
+        $serial = "0";
     }
+
+    if (!empty($status) && $status === 'active') {
+        $status = 'Activo';
+    } else{
+        $status = 'Inactivo';
+    }
+
     switch ($priority) {
         case "low":
-            $priority = "low";
+            $priority = "Baja";
             break;
         case "medium":
-            $priority = "medium";
+            $priority = "Media";
             break;
         case "high":
-            $priority = "high";
+            $priority = "Alta";
             break;
         default:
-            $priority = "low";
+            $priority = "Baja";
             break;
     }
 
     $results = $database->createElement($name, $description, $serial, $status, $priority);
+
     if (!empty($results)) {
         print_r($database->responseJson(
             true,

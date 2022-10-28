@@ -64,7 +64,7 @@ function filterTable(filter) {
         const filteredObjects = ObjectArray.filter((data) => {
             return (
                 data.name.toLowerCase().includes(search) ||
-
+ 
                 data.description.toLowerCase().includes(search) ||
 
                 data.serial.toLowerCase().includes(search) ||

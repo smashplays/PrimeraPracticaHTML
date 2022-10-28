@@ -78,12 +78,12 @@ class DataBase
     {
         try {
             $consulta = $this->pdo->prepare('UPDATE elementos SET 
-            nombre=:name, 
-            descripcion=:description, 
-            nserie=:serial, 
-            estado=:status, 
-            prioridad=:priority
-            WHERE id=:id;');
+            nombre = :name, 
+            descripcion = :description, 
+            nserie = :serial, 
+            estado = :status, 
+            prioridad = :priority
+            WHERE id = :id;');
 
             $consulta->bindParam(':id', $id, PDO::PARAM_INT);
             $consulta->bindParam(':name', $name, PDO::PARAM_STR);

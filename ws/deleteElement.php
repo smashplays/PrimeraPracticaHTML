@@ -14,6 +14,7 @@ try {
             "Elementos eliminados correctamente",
             $results
         ));
+
         $database->prepareAndExecuteGet('DELETE from elementos WHERE id = :id', $id);
     } else {
         print_r($database->responseJson(

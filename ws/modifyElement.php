@@ -5,6 +5,7 @@ require_once 'Database.php';
 try {
     $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
     $id = $_GET['id'] ?? null;
+    
     $name = $_POST['name'] ?? $database->getQueryResult('SELECT nombre FROM elementos WHERE id=:id', $id);
     $description = $_POST['description'] ?? $database->getQueryResult('SELECT descripcion FROM elementos WHERE id=:id', $id);
     $serial = $_POST['serial'] ?? $database->getQueryResult('SELECT nserie FROM elementos WHERE id=:id', $id);
