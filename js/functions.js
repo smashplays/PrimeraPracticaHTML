@@ -1,4 +1,4 @@
-const ObjectArray = [{
+const objectArray = [{
         "name": "Control de humo",
         "description": "Los sensores de humo son capaces de detectar el humo de un lugar a tiempo",
         "serial": "1582",
@@ -21,11 +21,8 @@ const ObjectArray = [{
     }
 ];
 
-const filter = document.getElementById('filter');
-const button = document.getElementsByClassName('button');
-
 window.onload = function () {
-    generateTable(ObjectArray);
+    generateTable(objectArray);
 }
 
 function deleteTable() {
@@ -39,7 +36,7 @@ function generateTable(data) {
     const table = document.querySelector('tbody');
     for (let i = 0; i < data.length; i++) {
         let row = `<tr id="row${i}" class="row">
-                        <td><button id="${i}" class="button" onclick="removeRow(this)">Delete</button></td>
+                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button onclick="editRow(this)"><button>Edit</button></td>
 						<td>${data[i].name}</td>
 						<td>${data[i].description}</td>
 						<td>${data[i].serial}</td>
@@ -57,11 +54,20 @@ function removeRow(button) {
     row.remove();
 }
 
-function filterTable(filter) {
+function editRow(button){
+    
+}
+
+function editForm(row){
+    
+}
+
+function filterTable() {
+    const filter = document.getElementById('filter');
     const search = filter.value.toLowerCase();
 
     if (search.length >= 3) {
-        const filteredObjects = ObjectArray.filter((data) => {
+        const filteredObjects = objectArray.filter((data) => {
             return (
                 data.name.toLowerCase().includes(search) ||
  
@@ -79,6 +85,6 @@ function filterTable(filter) {
     }
     else{
         deleteTable();
-        generateTable(ObjectArray);
+        generateTable(objectArray);
     }
 }
