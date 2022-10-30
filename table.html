@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/table.css" />
     <title>Tabla de elementos industriales</title>
     <script src="./js/functions.js"></script>
     <!-- <script src="./js/functionsFetch.js"></script> -->
@@ -22,7 +22,13 @@
     <h1>Tabla de elementos industriales</h1>
 
     <div id="pageContent">
-      <input type="text" name="filter" id="filter" placeholder="Filtrar" onkeyup="filterTable(this)">
+      <input
+        type="text"
+        name="filter"
+        id="filter"
+        placeholder="Filtrar"
+        onkeyup="filterTable(this)"
+      />
       <table id="table">
         <tr>
           <th>Acciones</th>
@@ -33,6 +39,70 @@
           <th>Prioridad</th>
         </tr>
       </table>
+    </div>
+
+    <div class="form-modal">
+      <div class="modal">
+        <button id="closeBtn">X</button>
+        <h2>EDITAR TABLA</h2>
+
+        <form action="">
+          <div>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Nombre del Elemento"
+            />
+          </div>
+
+          <div>
+            <textarea
+              name="description"
+              id="description"
+              cols="18"
+              rows="3"
+              placeholder="Descripción del Elemento"
+            ></textarea>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="serial"
+              id="serial"
+              placeholder="Número de serie"
+            />
+          </div>
+
+          <div id="statusBox">
+            <label for="status"><span class="activeBold">Activo:</span></label>
+            <input type="checkbox" name="status" id="status" value="active" />
+          </div>
+
+          <div id="priorityBox">
+            <label for="priority"
+              ><span class="priorityBold">Prioridad:</span></label
+            >
+            <div>
+              <input type="radio" id="priority" name="priority" value="high" />
+              <label for="high" id="high">Alta</label><br />
+              <input
+                type="radio"
+                id="priority"
+                name="priority"
+                value="medium"
+              />
+              <label for="medium" id="medium">Media</label><br />
+              <input type="radio" id="priority" name="priority" value="low" />
+              <label for="low" id="low">Baja</label>
+            </div>
+          </div>
+          <div>
+            <button class="btn" type="button" id="guardarDatos">Guardar</button>
+          </div>
+        </form>
+      </div>
     </div>
     <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
   </body>

@@ -36,7 +36,7 @@ function generateTable(data) {
     const table = document.querySelector('tbody');
     for (let i = 0; i < data.length; i++) {
         let row = `<tr id="row${i}" class="row">
-                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button onclick="editRow(this)"><button>Edit</button></td>
+                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button><button id="mostrarModal" onclick="editRow(this)">Edit</button></td>
 						<td>${data[i].name}</td>
 						<td>${data[i].description}</td>
 						<td>${data[i].serial}</td>
@@ -55,11 +55,64 @@ function removeRow(button) {
 }
 
 function editRow(button){
-    
-}
+    const guardarDatos = document.querySelector('#guardarDatos');
+    const formModal = document.querySelector('.form-modal');
+    const closeBtn = document.querySelector('#closeBtn');
 
-function editForm(row){
+    selectedRow = button.parentElement.parentElement;
     
+    document.querySelector("#name").value = selectedRow.cells[1].innerHTML;
+    document.querySelector("#description").value = selectedRow.cells[2].innerHTML;
+    document.querySelector("#serial").value = selectedRow.cells[3].innerHTML;
+    document.querySelector("#status").value = selectedRow.cells[4].innerHTML;
+    document.querySelector("#priority").value = selectedRow.cells[5].innerHTML;
+
+    formModal.classList.add('mostrar');
+
+    closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        formModal.classList.remove('mostrar');
+    });
+
+    guardarDatos.addEventListener('click', (e) => {
+        e.preventDefault();
+        selectedRow.cells[1].innerHTML = document.querySelector("#name").value;
+        selectedRow.cells[2].innerHTML = document.querySelector("#description").value;
+        selectedRow.cells[3].innerHTML = document.querySelector("#serial").value;
+
+        if(document.querySelector("#status").value !== 'active'){
+            selectedRow.cells[4].innerHTML = 'Inactivo';
+            console.log(document.querySelector("#status").value);
+        }else{
+            selectedRow.cells[4].innerHTML = 'Activo';
+            console.log(document.querySelector("#status").value);
+        }
+
+        // selectedRow.cells[4].innerHTML = document.querySelector("#status").value;
+
+        switch(document.querySelector("#priority").value){
+            case 'low':
+                selectedRow.cells[5].innerHTML = 'Bajo';
+                console.log(document.querySelector("#priority").value);
+                break;
+            case 'medium':
+                selectedRow.cells[5].innerHTML = 'Medio';
+                console.log(document.querySelector("#priority").value);
+                break;
+            case 'high':
+                selectedRow.cells[5].innerHTML = 'Alto';
+                console.log(document.querySelector("#priority").value);
+                break;
+            default:
+                selectedRow.cells[5].innerHTML = 'Bajo';
+                console.log(document.querySelector("#priority").value);
+        }
+
+        // selectedRow.cells[5].innerHTML = document.querySelector("#priority").value;
+        
+        formModal.classList.remove('mostrar');
+    });
+
 }
 
 function filterTable() {
