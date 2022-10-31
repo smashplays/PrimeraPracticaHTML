@@ -54,13 +54,13 @@ function removeRow(button) {
     row.remove();
 }
 
-function editRow(button){
+function editRow(button) {
     const guardarDatos = document.querySelector('#guardarDatos');
     const formModal = document.querySelector('.form-modal');
     const closeBtn = document.querySelector('#closeBtn');
 
     selectedRow = button.parentElement.parentElement;
-    
+
     document.querySelector("#name").value = selectedRow.cells[1].innerHTML;
     document.querySelector("#description").value = selectedRow.cells[2].innerHTML;
     document.querySelector("#serial").value = selectedRow.cells[3].innerHTML;
@@ -80,17 +80,17 @@ function editRow(button){
         selectedRow.cells[2].innerHTML = document.querySelector("#description").value;
         selectedRow.cells[3].innerHTML = document.querySelector("#serial").value;
 
-        if(document.querySelector("#status").value !== 'active'){
+        if (document.querySelector("#status").value !== 'active') {
             selectedRow.cells[4].innerHTML = 'Inactivo';
             console.log(document.querySelector("#status").value);
-        }else{
+        } else {
             selectedRow.cells[4].innerHTML = 'Activo';
             console.log(document.querySelector("#status").value);
         }
 
         // selectedRow.cells[4].innerHTML = document.querySelector("#status").value;
 
-        switch(document.querySelector("#priority").value){
+        switch (document.querySelector("#priority").value) {
             case 'low':
                 selectedRow.cells[5].innerHTML = 'Bajo';
                 console.log(document.querySelector("#priority").value);
@@ -109,7 +109,7 @@ function editRow(button){
         }
 
         // selectedRow.cells[5].innerHTML = document.querySelector("#priority").value;
-        
+
         formModal.classList.remove('mostrar');
     });
 
@@ -123,7 +123,7 @@ function filterTable() {
         const filteredObjects = objectArray.filter((data) => {
             return (
                 data.name.toLowerCase().includes(search) ||
- 
+
                 data.description.toLowerCase().includes(search) ||
 
                 data.serial.toLowerCase().includes(search) ||
@@ -135,8 +135,7 @@ function filterTable() {
         });
         deleteTable();
         generateTable(filteredObjects);
-    }
-    else{
+    } else {
         deleteTable();
         generateTable(objectArray);
     }
