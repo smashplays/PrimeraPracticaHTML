@@ -37,45 +37,45 @@ form {
     display: grid;
 }
 
-#name{
+#name {
     grid-area: 1 / 1 / 2 / 2;
     padding: 15px;
     margin: 10px;
 }
 
-#description{
+#description {
     grid-area: 2 / 1 / 3 / 2;
     padding: 15px;
     margin: 10px;
 }
 
-#serial{
+#serial {
     grid-area: 3 / 1 / 4 / 2;
     padding: 15px;
     margin: 10px;
 }
 
-#statusBox{
+#statusBox {
     margin-left: 50px;
 }
 
-#status{
+#status {
     grid-area: 4 / 1 / 5 / 2;
     padding: 15px;
     margin: 10px;
 }
 
-#priorityBox{
+#priorityBox {
     margin-left: 50px;
 }
 
-#priority{
+#priority {
     grid-area: 5 / 1 / 6 / 2;
     padding: 15px;
     margin: 10px;
 }
 
-#submit{
+#submit {
     grid-area: 6 / 1 / 7 / 2;
     padding: 10px;
     margin-left: 5px;

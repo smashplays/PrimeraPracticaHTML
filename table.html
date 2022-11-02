@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/table.css" />
-    <title>Tabla de elementos industriales</title>
     <script src="./js/functions.js"></script>
-    <!-- <script src="./js/functionsFetch.js"></script> -->
+    <title>Tabla de elementos industriales</title>
   </head>
   <body>
     <figure id="figure">
@@ -46,7 +45,7 @@
         <button id="closeBtn">X</button>
         <h2>EDITAR TABLA</h2>
 
-        <form action="">
+        <form>
           <div>
             <input
               type="text"
@@ -77,7 +76,7 @@
 
           <div id="statusBox">
             <label for="status"><span class="activeBold">Activo:</span></label>
-            <input type="checkbox" name="status" id="status" value="active" />
+            <input type="checkbox" name="status" id="status" />
           </div>
 
           <div id="priorityBox">
@@ -85,21 +84,16 @@
               ><span class="priorityBold">Prioridad:</span></label
             >
             <div>
-              <input type="radio" id="priority" name="priority" value="high" />
-              <label for="high" id="high">Alta</label><br />
-              <input
-                type="radio"
-                id="priority"
-                name="priority"
-                value="medium"
-              />
-              <label for="medium" id="medium">Media</label><br />
-              <input type="radio" id="priority" name="priority" value="low" />
-              <label for="low" id="low">Baja</label>
+              <input type="radio" id="high" name="priority" />
+              <label for="high">Alta</label><br />
+              <input type="radio" id="medium" name="priority" />
+              <label for="medium">Media</label><br />
+              <input type="radio" id="low" name="priority" />
+              <label for="low">Baja</label>
             </div>
           </div>
           <div>
-            <button class="btn" type="button" id="guardarDatos">Guardar</button>
+            <input class="btn" type="button" id="saveData" value="Guardar" />
           </div>
         </form>
       </div>

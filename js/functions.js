@@ -21,9 +21,9 @@ const objectArray = [{
     }
 ];
 
-window.onload = function () {
+addEventListener('load', () => {
     generateTable(objectArray);
-}
+});
 
 function deleteTable() {
     const element = document.querySelectorAll('tbody .row');
@@ -36,7 +36,7 @@ function generateTable(data) {
     const table = document.querySelector('tbody');
     for (let i = 0; i < data.length; i++) {
         let row = `<tr id="row${i}" class="row">
-                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button><button id="mostrarModal" onclick="editRow(this)">Edit</button></td>
+                        <td><button id="${i}" class="button" onclick="removeRow(this)">X</button><button id="showModal" onclick="editRow(this, ${i})">Edit</button></td>
 						<td>${data[i].name}</td>
 						<td>${data[i].description}</td>
 						<td>${data[i].serial}</td>
@@ -54,65 +54,85 @@ function removeRow(button) {
     row.remove();
 }
 
-function editRow(button) {
-    const guardarDatos = document.querySelector('#guardarDatos');
+function editRow(button, number) {
+    const saveData = document.querySelector('#saveData');
     const formModal = document.querySelector('.form-modal');
     const closeBtn = document.querySelector('#closeBtn');
 
     selectedRow = button.parentElement.parentElement;
 
-    document.querySelector("#name").value = selectedRow.cells[1].innerHTML;
-    document.querySelector("#description").value = selectedRow.cells[2].innerHTML;
-    document.querySelector("#serial").value = selectedRow.cells[3].innerHTML;
-    document.querySelector("#status").value = selectedRow.cells[4].innerHTML;
-    document.querySelector("#priority").value = selectedRow.cells[5].innerHTML;
-
     formModal.classList.add('mostrar');
 
-    closeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+    closeBtn.addEventListener('click', () => {
         formModal.classList.remove('mostrar');
     });
 
-    guardarDatos.addEventListener('click', (e) => {
-        e.preventDefault();
-        selectedRow.cells[1].innerHTML = document.querySelector("#name").value;
-        selectedRow.cells[2].innerHTML = document.querySelector("#description").value;
-        selectedRow.cells[3].innerHTML = document.querySelector("#serial").value;
+    // Valores al abrir el formulario
+    document.getElementById("name").value = objectArray[number].name;
+    document.getElementById("description").value = objectArray[number].description;
+    document.getElementById("serial").value = objectArray[number].serial;
 
-        if (document.querySelector("#status").value !== 'active') {
-            selectedRow.cells[4].innerHTML = 'Inactivo';
-            console.log(document.querySelector("#status").value);
+    const active = document.getElementById('status');
+    if (selectedRow.cells[4].innerHTML === 'Activo') {
+        active.checked = true;
+    } else {
+        active.checked = false;
+    }
+
+    const low = document.getElementById('low');
+    const medium = document.getElementById('medium');
+    const high = document.getElementById('high');
+
+    if (selectedRow.cells[5].innerHTML === 'Alta') {
+        high.checked = true;
+        medium.checked = false;
+        low.checked = false;
+    } else if (selectedRow.cells[5].innerHTML === 'Media') {
+        high.checked = false;
+        medium.checked = true;
+        low.checked = false;
+    } else if (selectedRow.cells[5].innerHTML === 'Baja') {
+        high.checked = false;
+        medium.checked = false;
+        low.checked = true;
+    }
+
+    // Evento tras guardar los datos
+    saveData.addEventListener('click', () => {
+
+        // Asignamos los valores del formulario al objeto y luego metemos esos valores a las celdas de la tabla
+        objectArray[number].name = document.getElementById("name").value;
+        objectArray[number].description = document.getElementById("description").value;
+        objectArray[number].serial = document.getElementById("serial").value;
+
+        selectedRow.cells[1].innerHTML = objectArray[number].name;
+        selectedRow.cells[2].innerHTML = objectArray[number].description;
+        selectedRow.cells[3].innerHTML = objectArray[number].serial;
+
+        if (active.checked) {
+            objectArray[number].status = 'Activo';
+            selectedRow.cells[4].innerHTML = objectArray[number].status;
         } else {
-            selectedRow.cells[4].innerHTML = 'Activo';
-            console.log(document.querySelector("#status").value);
+            objectArray[number].status = 'Inactivo';
+            selectedRow.cells[4].innerHTML = objectArray[number].status;
         }
 
-        // selectedRow.cells[4].innerHTML = document.querySelector("#status").value;
-
-        switch (document.querySelector("#priority").value) {
-            case 'low':
-                selectedRow.cells[5].innerHTML = 'Bajo';
-                console.log(document.querySelector("#priority").value);
-                break;
-            case 'medium':
-                selectedRow.cells[5].innerHTML = 'Medio';
-                console.log(document.querySelector("#priority").value);
-                break;
-            case 'high':
-                selectedRow.cells[5].innerHTML = 'Alto';
-                console.log(document.querySelector("#priority").value);
-                break;
-            default:
-                selectedRow.cells[5].innerHTML = 'Bajo';
-                console.log(document.querySelector("#priority").value);
+        if (low.checked) {
+            objectArray[number].priority = 'Bajo';
+            selectedRow.cells[5].innerHTML = objectArray[number].priority;
+        } else if (medium.checked) {
+            objectArray[number].priority = 'Medio';
+            selectedRow.cells[5].innerHTML = objectArray[number].priority;
+        } else if (high.checked) {
+            objectArray[number].priority = 'Alto';
+            selectedRow.cells[5].innerHTML = objectArray[number].priority;
+        } else {
+            objectArray[number].priority = 'Bajo';
+            selectedRow.cells[5].innerHTML = objectArray[number].priority;
         }
-
-        // selectedRow.cells[5].innerHTML = document.querySelector("#priority").value;
 
         formModal.classList.remove('mostrar');
     });
-
 }
 
 function filterTable() {

@@ -69,7 +69,7 @@ class Element implements IToJson
 
     public function toJson($arr)
     {
-        $json = json_encode($arr);
+        $json = json_encode($arr, JSON_PRETTY_PRINT);
         return $json;
     }
 

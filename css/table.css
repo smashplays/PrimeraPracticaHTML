@@ -6,7 +6,7 @@ h1 {
     text-align: center;
 }
 
-th{
+th {
     color: #033E64;
 }
 
@@ -26,31 +26,31 @@ h1,
     color: #033E64;
 }
 
-#filter{
+#filter {
     margin-top: 15px;
     margin-left: 5px;
 }
 
-#filter:hover{
+#filter:hover {
     border: 3px solid #033E64;
 }
 
-::placeholder{
+::placeholder {
     color: #032542;
     opacity: 1;
 }
 
-table{
+table {
     margin-top: 25px;
 }
 
-tr th{
+tr th {
     background-color: #032542;
     color: white;
     border: 2px dashed #033E64;
 }
 
-tr td{
+tr td {
     background-color: #033E64;
     color: white;
     border: 3px dotted #032542;
@@ -58,7 +58,7 @@ tr td{
 
 .row td>button {
     display: inline;
-    color: black;
+    color: white;
     background-color: #C9302C;
     padding: 5px;
     margin: 5px;
@@ -76,6 +76,11 @@ tr td{
 
 
 /* CSS para el modal */
+
+#showModal {
+    background-color: gray;
+    color: white;
+}
 
 .form-modal {
     position: fixed;
@@ -106,7 +111,7 @@ tr td{
     align-items: center;
     margin: 0 500px;
     padding: 50px;
-    background-color: #fff;
+    background-color: orange;
     opacity: 1;
 }
 
@@ -118,11 +123,53 @@ form {
     align-items: center;
 }
 
-h2{
+h2 {
+    color: #032542;
+}
+
+form input,
+form textarea {
+    margin: 15px;
+    padding: 10px;
     color: #033E64;
 }
 
-form input {
-    margin: 15px;
-    padding: 10px;
+#closeBtn {
+    position: absolute;
+    background-color: #C9302C;
+    color: white;
+    width: 50px;
+    margin-bottom: 622px;
+    margin-left: 299px;
+}
+
+.activeBold {
+    font-weight: bold;
+    color: #032542;
+}
+
+.priorityBold {
+    font-weight: bold;
+    color: #032542;
+}
+
+#status {
+    accent-color: green;
+}
+
+#high {
+    accent-color: green;
+}
+
+#medium {
+    accent-color: yellow;
+}
+
+#low {
+    accent-color: red;
+}
+
+#saveData {
+    background-color: #033E64;
+    color: white;
 }

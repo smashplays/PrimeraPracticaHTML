@@ -1,6 +1,6 @@
-window.onload = () => {
+addEventListener('load', () => {
     insertHtml();
-}
+});
 
 function insertHtml() {
     const xhr = new XMLHttpRequest();
