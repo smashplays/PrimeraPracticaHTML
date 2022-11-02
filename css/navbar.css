@@ -26,3 +26,12 @@
     color: black;
     background-color: white;
 }
+
+#formItem,
+#tableItem,
+#galleryItem,
+#definitionItem,
+#aboutusItem
+{
+    background-color: white;
+}
