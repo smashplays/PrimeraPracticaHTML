@@ -1,7 +1,7 @@
 <?php
 
 // require_once '../interfaces/IToJson.php';
-require_once './Database.php';
+// require_once '../Database.php';
 
 class Element //implements IToJson
 {
@@ -195,6 +195,28 @@ class Element //implements IToJson
             $serial = $_POST['serial'] ?? self::getQueryResult('SELECT nserie FROM elementos WHERE id=:id', $id, $database);
             $status = $_POST["status"] ?? self::getQueryResult('SELECT estado FROM elementos WHERE id=:id', $id, $database);
             $priority = $_POST["priority"] ?? self::getQueryResult('SELECT prioridad FROM elementos WHERE id=:id', $id, $database);
+
+            if ($status === 'Activo') {
+                $status = 'Activo';
+            } else {
+                $status = 'Inactivo';
+            }
+
+            switch ($priority) {
+                case "Baja":
+                    $priority = "Baja";
+                    break;
+                case "Media":
+                    $priority = "Media";
+                    break;
+                case "Alta":
+                    $priority = "Alta";
+                    break;
+                default:
+                    $priority = "Baja";
+                    break;
+            }
+
 
             $results = self::modifyQuery($name, $description, $serial, $status, $priority, $id, $database);
 
