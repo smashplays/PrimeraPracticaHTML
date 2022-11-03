@@ -63,6 +63,7 @@ function editRow(button, number) {
 
     formModal.classList.add('mostrar');
 
+    // Evento para cerrar con el botón X
     closeBtn.addEventListener('click', () => {
         formModal.classList.remove('mostrar');
     });
