@@ -68,14 +68,20 @@ function editRow(button, number) {
     });
 
     // Valores al abrir el formulario
+    objectArray[number].name = selectedRow.cells[1].innerHTML;
+    objectArray[number].description = selectedRow.cells[2].innerHTML;
+    objectArray[number].serial = selectedRow.cells[3].innerHTML;
+
     document.getElementById("name").value = objectArray[number].name;
     document.getElementById("description").value = objectArray[number].description;
     document.getElementById("serial").value = objectArray[number].serial;
 
     const active = document.getElementById('status');
     if (selectedRow.cells[4].innerHTML === 'Activo') {
+        objectArray[number].status = 'Activo';
         active.checked = true;
     } else {
+        objectArray[number].status = 'Inactivo';
         active.checked = false;
     }
 
@@ -84,14 +90,17 @@ function editRow(button, number) {
     const high = document.getElementById('high');
 
     if (selectedRow.cells[5].innerHTML === 'Alta') {
+        objectArray[number].priority = 'Alta';
         high.checked = true;
         medium.checked = false;
         low.checked = false;
     } else if (selectedRow.cells[5].innerHTML === 'Media') {
+        objectArray[number].priority = 'Media';
         high.checked = false;
         medium.checked = true;
         low.checked = false;
     } else if (selectedRow.cells[5].innerHTML === 'Baja') {
+        objectArray[number].priority = 'Baja';
         high.checked = false;
         medium.checked = false;
         low.checked = true;

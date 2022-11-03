@@ -10,9 +10,7 @@
   </head>
   <body>
     <figure id="figure">
-      <a href="#"
-        ><img src="img/logo.png" alt="logo" width="80"
-      /></a>
+      <a href="#"><img src="img/logo.png" alt="logo" width="80" /></a>
     </figure>
 
     <script src="./js/nav.js"></script>
@@ -22,7 +20,12 @@
     <div id="pageContent">
       <form method="POST" action="ws/createElement2.php">
         <div>
-          <input type="text" name="name" id="name" placeholder="Nombre del Elemento"/>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Nombre del Elemento"
+          />
         </div>
 
         <div>
@@ -36,7 +39,12 @@
         </div>
 
         <div>
-          <input type="text" name="serial" id="serial" placeholder="Número de serie"/>
+          <input
+            type="text"
+            name="serial"
+            id="serial"
+            placeholder="Número de serie"
+          />
         </div>
 
         <div id="statusBox">
@@ -45,14 +53,27 @@
         </div>
 
         <div id="priorityBox">
-          <label for="priority"><span class="priorityBold">Prioridad:</span></label>
+          <label for="priority"
+            ><span class="priorityBold">Prioridad:</span></label
+          >
           <div>
-            <input type="radio" id="priority" name="priority" value="high" />
-            <label for="high" id="high">Alta</label><br />
-            <input type="radio" id="priority" name="priority" value="medium" />
-            <label for="medium" id="medium">Media</label><br />
-            <input type="radio" id="priority" name="priority" value="low" />
-            <label for="low" id="low">Baja</label>
+            <div>
+              <input type="radio" id="priority" name="priority" value="high" />
+              <label for="high" id="high">Alta</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="priority"
+                name="priority"
+                value="medium"
+              />
+              <label for="medium" id="medium">Media</label>
+            </div>
+            <div>
+              <input type="radio" id="priority" name="priority" value="low" />
+              <label for="low" id="low">Baja</label>
+            </div>
           </div>
         </div>
 
