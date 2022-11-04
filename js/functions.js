@@ -55,18 +55,25 @@ function removeRow(button) {
 }
 
 function editRow(button, number) {
-    const saveData = document.querySelector('#saveData');
-    const formModal = document.querySelector('.form-modal');
-    const closeBtn = document.querySelector('#closeBtn');
 
-    selectedRow = button.parentElement.parentElement;
+    //Abrir el modal del formulario
+
+    const formModal = document.querySelector('.form-modal');
 
     formModal.classList.add('mostrar');
+
+    // Botón X para el formulario
+
+    const closeBtn = document.querySelector('#closeBtn');
 
     // Evento para cerrar con el botón X
     closeBtn.addEventListener('click', () => {
         formModal.classList.remove('mostrar');
     });
+
+    // Fila padre del botón edit
+
+    selectedRow = button.parentElement.parentElement;
 
     // Valores al abrir el formulario
     objectArray[number].name = selectedRow.cells[1].innerHTML;
@@ -106,6 +113,10 @@ function editRow(button, number) {
         medium.checked = false;
         low.checked = true;
     }
+
+    // Botón guardar del formulario
+
+    const saveData = document.querySelector('#saveData');
 
     // Evento tras guardar los datos
     saveData.addEventListener('click', () => {

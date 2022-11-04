@@ -89,7 +89,7 @@ class Element //implements IToJson
             $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
             $id = $_GET['id'] ?? null;
             if ($id !== null) {
-                $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
+                $results = self::prepareAndExecuteGet('SELECT * fromelementos WHERE id = :id', $id, $database);
             } else {
                 $results = self::query('SELECT * from elementos', $database);
             }
@@ -156,13 +156,13 @@ class Element //implements IToJson
             }
 
             switch ($priority) {
-                case "low":
+                case "Baja":
                     $priority = "Baja";
                     break;
-                case "medium":
+                case "Media":
                     $priority = "Media";
                     break;
-                case "high":
+                case "Alta":
                     $priority = "Alta";
                     break;
                 default:
@@ -234,7 +234,7 @@ class Element //implements IToJson
 
 
     // DATABASE QUERY FUNCTIONS
-    public static function query($query, $database)
+    private static function query($query, $database)
     {
         try {
             $consulta = $database->getPdo()->query($query);
@@ -244,7 +244,7 @@ class Element //implements IToJson
         }
     }
 
-    public static function prepareAndExecuteGet($query, $id, $database)
+    private static function prepareAndExecuteGet($query, $id, $database)
     {
         try {
             $consulta = $database->getPdo()->prepare($query);
@@ -256,7 +256,7 @@ class Element //implements IToJson
         }
     }
 
-    public static function createQuery($name, $description, $serial, $status, $priority, $database)
+    private static function createQuery($name, $description, $serial, $status, $priority, $database)
     {
         try {
             $consulta = $database->getPdo()->prepare('INSERT INTO elementos(nombre, descripcion, nserie, estado, prioridad)
@@ -274,7 +274,7 @@ class Element //implements IToJson
         }
     }
 
-    public static function modifyQuery($name, $description, $serial, $status, $priority, $id, $database)
+    private static function modifyQuery($name, $description, $serial, $status, $priority, $id, $database)
     {
         try {
             $consulta = $database->getPdo()->prepare('UPDATE elementos SET 
@@ -298,7 +298,7 @@ class Element //implements IToJson
         }
     }
 
-    public static function getQueryResult($query, $id, $database)
+    private static function getQueryResult($query, $id, $database)
     {
         try {
             $consulta = $database->getPdo()->prepare($query);
