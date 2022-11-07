@@ -1,7 +1,7 @@
 <?php
 
 // require_once '../interfaces/IToJson.php';
-// require_once '../Database.php';
+// require_once '../Database.php'; 
 
 class Element //implements IToJson
 {
@@ -86,15 +86,21 @@ class Element //implements IToJson
     public static function getElement()
     {
         try {
-            $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
+            $database = Conexion::connectDb();
             $id = $_GET['id'] ?? null;
             if ($id !== null) {
-                $results = self::prepareAndExecuteGet('SELECT * fromelementos WHERE id = :id', $id, $database);
+                $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
             } else {
                 $results = self::query('SELECT * from elementos', $database);
             }
 
-            return $results;
+            if (!empty($results)) {
+                $response = self::responseJson(true, "Elementos obtenidos correctamente", $results);
+            } else {
+                $response = self::responseJson(false, "Elementos no encontrados", null);
+            }
+
+            return $response;
         } catch (Exception $e) {
             return "Ha fallado la conexión por " . $e->getMessage();
         } finally {
@@ -105,19 +111,21 @@ class Element //implements IToJson
     public static function deleteElement()
     {
         try {
-            $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
+            $database = Conexion::connectDb();
             $id = $_GET['id'] ?? null;
 
             $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
 
             if ($id !== null && !empty($results)) {
                 self::prepareAndExecuteGet('DELETE from elementos WHERE id = :id', $id, $database);
-                return $results;
+                $response = self::responseJson(true, "Elementos eliminados correctamente", $results);
             } else {
-                return null;
+                $response = self::responseJson(false, "El elemento que desea eliminar no se encuentra en la base de datos o no se ha especificado", null);
             }
+
+            return $response;
         } catch (Exception $e) {
-            echo "Ha fallado la conexión por " . $e->getMessage();
+            return "Ha fallado la conexión por " . $e->getMessage();
         } finally {
             $database->closePdo();
         }
@@ -126,7 +134,7 @@ class Element //implements IToJson
     public static function createElement()
     {
         try {
-            $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
+            $database = Conexion::connectDb();
 
             $status = $_POST["status"] ?? 'Inactivo';
             $priority = $_POST["priority"] ?? 'low';
@@ -173,12 +181,14 @@ class Element //implements IToJson
             $results = self::createQuery($name, $description, $serial, $status, $priority, $database);
 
             if (!empty($results)) {
-                return $results;
+                $response = self::responseJson(true, "Elemento creado correctamente", $results);
             } else {
-                return null;
+                $response = self::responseJson(false, "Los elementos no se han podido crear, comprueba los datos introducidos", null);
             }
+
+            return $response;
         } catch (Exception $e) {
-            echo "Ha fallado la conexión por " . $e->getMessage();
+            return "Ha fallado la conexión por " . $e->getMessage();
         } finally {
             $database->closePdo();
         }
@@ -187,8 +197,13 @@ class Element //implements IToJson
     public static function modifyElement()
     {
         try {
-            $database = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
+            $database = Conexion::connectDb();
             $id = $_GET['id'] ?? null;
+
+            if(empty($_POST)){
+                $response = self::responseJson(false, "No has editado ningún elemento de la id $id", null);
+                return $response;
+            }
 
             $name = $_POST['name'] ?? self::getQueryResult('SELECT nombre FROM elementos WHERE id=:id', $id, $database);
             $description = $_POST['description'] ?? self::getQueryResult('SELECT descripcion FROM elementos WHERE id=:id', $id, $database);
@@ -221,12 +236,14 @@ class Element //implements IToJson
             $results = self::modifyQuery($name, $description, $serial, $status, $priority, $id, $database);
 
             if ($id !== null && !empty($results)) {
-                return $results;
+                $response = self::responseJson(true, "Elemento modificado correctamente", $results);
             } else {
-                return null;
+                $response = self::responseJson(false, "Los elementos no se han podido modificar, comprueba los datos introducidos", null);
             }
+
+            return $response;
         } catch (Exception $e) {
-            echo "Ha fallado la conexión por " . $e->getMessage();
+            return "Ha fallado la conexión por " . $e->getMessage();
         } finally {
             $database->closePdo();
         }
@@ -311,7 +328,7 @@ class Element //implements IToJson
     }
 
     // RESPONSE JSON METHOD
-    public static function responseJson($success, $message, $data)
+    private static function responseJson($success, $message, $data)
     {
         $results = [];
         $results["success"] = $success;

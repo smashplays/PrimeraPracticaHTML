@@ -1,12 +1,7 @@
 <?php
 
 require_once 'Database.php';
+require_once 'Conexion.php';
 require_once 'models/Element.php';
 
-$results = Element::getElement();
-
-if (!empty($results)) {
-    print_r(Element::responseJson(true, "Elementos obtenidos correctamente", $results));
-} else {
-    print_r(Element::responseJson(false, "Elementos no encontrados", null));
-}
+print_r(Element::getElement());
