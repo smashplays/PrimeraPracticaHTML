@@ -99,9 +99,11 @@ class Element //implements IToJson
         try {
             $database = self::connectDb();
             if ($id !== null) {
-                $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
+                $results = self::prepareAndExecuteGet('SELECT nombre, descripcion, nserie, estado, prioridad 
+                from elementos WHERE id = :id', $id, $database);
             } else {
-                $results = self::query('SELECT * from elementos', $database);
+                $results = self::query('SELECT nombre, descripcion, nserie, estado, prioridad 
+                from elementos', $database);
             }
 
             if (!empty($results)) {
@@ -123,7 +125,8 @@ class Element //implements IToJson
         try {
             $database = self::connectDb();
 
-            $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
+            $results = self::prepareAndExecuteGet('SELECT nombre, descripcion, nserie, estado, prioridad
+            from elementos WHERE id = :id', $id, $database);
 
             if ($id !== null && !empty($results)) {
                 self::prepareAndExecuteGet('DELETE from elementos WHERE id = :id', $id, $database);
@@ -299,7 +302,8 @@ class Element //implements IToJson
             $consulta->bindParam(':status', $status, PDO::PARAM_STR);
             $consulta->bindParam(':priority', $priority, PDO::PARAM_STR);
             $consulta->execute();
-            return self::prepareAndExecuteGet('SELECT * FROM elementos WHERE id = :id', $database->getPdo()->lastInsertId(), $database);
+            return self::prepareAndExecuteGet('SELECT nombre, descripcion, nserie, estado, prioridad
+            FROM elementos WHERE id = :id', $database->getPdo()->lastInsertId(), $database);
         } catch (PDOException $e) {
             return null;
         }
@@ -323,7 +327,8 @@ class Element //implements IToJson
             $consulta->bindParam(':status', $status, PDO::PARAM_STR);
             $consulta->bindParam(':priority', $priority, PDO::PARAM_STR);
             $consulta->execute();
-            return self::prepareAndExecuteGet('SELECT * FROM elementos WHERE id = :id', $id, $database);
+            return self::prepareAndExecuteGet('SELECT nombre, descripcion, nserie, estado, prioridad
+            FROM elementos WHERE id = :id', $id, $database);
         } catch (PDOException $e) {
             return null;
         }
