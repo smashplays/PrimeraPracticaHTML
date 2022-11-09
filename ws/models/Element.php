@@ -11,7 +11,7 @@ class Element //implements IToJson
     private $status;
     private $priority;
 
-    public function __construct($name, $description, $serial, $status, $priority)
+    public function __construct($name = null, $description = null, $serial = null, $status = null, $priority = null)
     {
         $this->name = $name;
         $this->description = $description;
@@ -83,11 +83,21 @@ class Element //implements IToJson
     // }
 
     // CRUD API Functions
-    public static function getElement()
+
+    private static function connectDb()
     {
         try {
-            $database = Conexion::connectDb();
-            $id = $_GET['id'] ?? null;
+            $db = new DataBase('root', '', '127.0.0.1', '3306', 'monfab');
+            return $db;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public static function getElement($id = null)
+    {
+        try {
+            $database = self::connectDb();
             if ($id !== null) {
                 $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
             } else {
@@ -108,11 +118,10 @@ class Element //implements IToJson
         }
     }
 
-    public static function deleteElement()
+    public static function deleteElement($id = null)
     {
         try {
-            $database = Conexion::connectDb();
-            $id = $_GET['id'] ?? null;
+            $database = self::connectDb();
 
             $results = self::prepareAndExecuteGet('SELECT * from elementos WHERE id = :id', $id, $database);
 
@@ -131,29 +140,35 @@ class Element //implements IToJson
         }
     }
 
-    public static function createElement()
+    public function save($id = null)
+    {
+        if ($id === null) {
+            return $this->createElement();
+        } else {
+            return $this->modifyElement($id);
+        }
+    }
+
+    private function createElement()
     {
         try {
-            $database = Conexion::connectDb();
+            $database = self::connectDb();
 
-            $status = $_POST["status"] ?? 'Inactivo';
-            $priority = $_POST["priority"] ?? 'low';
+            $name = $this->getName() ?? "Ejemplo";
+            $description = $this->getDescription() ?? "Ejemplo Descripcion";
+            $serial = $this->getSerial() ?? "0";
+            $status = $this->getStatus() ?? 'Inactivo';
+            $priority = $this->getPriority() ?? 'low';
 
-            if (!empty($_POST["name"])) {
-                $name = $_POST["name"];
-            } else {
+            if (empty($name)) {
                 $name = "Ejemplo";
             }
 
-            if (!empty($_POST["description"])) {
-                $description = $_POST["description"];
-            } else {
+            if (empty($description)) {
                 $description = "Ejemplo Descripcion";
             }
 
-            if (!empty($_POST["serial"])) {
-                $serial = $_POST["serial"];
-            } else {
+            if (empty($serial)) {
                 $serial = "0";
             }
 
@@ -194,22 +209,21 @@ class Element //implements IToJson
         }
     }
 
-    public static function modifyElement()
+    private function modifyElement($id)
     {
         try {
-            $database = Conexion::connectDb();
-            $id = $_GET['id'] ?? null;
+            $database = self::connectDb();
 
-            if(empty($_POST)){
+            if (empty($_POST)) {
                 $response = self::responseJson(false, "No has editado ningún elemento de la id $id", null);
                 return $response;
             }
 
-            $name = $_POST['name'] ?? self::getQueryResult('SELECT nombre FROM elementos WHERE id=:id', $id, $database);
-            $description = $_POST['description'] ?? self::getQueryResult('SELECT descripcion FROM elementos WHERE id=:id', $id, $database);
-            $serial = $_POST['serial'] ?? self::getQueryResult('SELECT nserie FROM elementos WHERE id=:id', $id, $database);
-            $status = $_POST["status"] ?? self::getQueryResult('SELECT estado FROM elementos WHERE id=:id', $id, $database);
-            $priority = $_POST["priority"] ?? self::getQueryResult('SELECT prioridad FROM elementos WHERE id=:id', $id, $database);
+            $name = $this->getName() ?? self::getQueryResult('SELECT nombre FROM elementos WHERE id=:id', $id, $database);
+            $description = $this->getDescription() ?? self::getQueryResult('SELECT descripcion FROM elementos WHERE id=:id', $id, $database);
+            $serial = $this->getSerial() ?? self::getQueryResult('SELECT nserie FROM elementos WHERE id=:id', $id, $database);
+            $status = $this->getStatus() ?? self::getQueryResult('SELECT estado FROM elementos WHERE id=:id', $id, $database);
+            $priority = $this->getPriority() ?? self::getQueryResult('SELECT prioridad FROM elementos WHERE id=:id', $id, $database);
 
             if ($status === 'Activo') {
                 $status = 'Activo';
