@@ -99,11 +99,7 @@ class Element //implements IToJson
         $database = self::connectDb();
 
         if ($database === null) {
-            return self::responseJson(
-                false,
-                "Ha fallado la conexión a la base de datos",
-                null
-            );
+            return self::connectionFailed();
         }
 
         if ($id !== null) {
@@ -128,22 +124,18 @@ class Element //implements IToJson
         } else {
             return self::responseJson(
                 false,
-                "La consulta ha fallado",
-                null
+                "ERROR: Ha fallado la consulta para obtener los elementos",
+                $results
             );
         }
     }
 
-    public static function deleteElement($id = null)
+    public static function deleteElement($id)
     {
         $database = self::connectDb();
 
         if ($database === null) {
-            return self::responseJson(
-                false,
-                "Ha fallado la conexión a la base de datos",
-                null
-            );
+            return self::connectionFailed();
         }
 
         $results = self::prepareAndExecuteGet(
@@ -155,8 +147,8 @@ class Element //implements IToJson
         if ($results === null) {
             return self::responseJson(
                 false,
-                "No se ha podido obtener correctamente el elemento eliminado",
-                null
+                "ERROR: La consulta para obtener el elemento eliminado ha fallado",
+                $results
             );
         }
 
@@ -169,20 +161,20 @@ class Element //implements IToJson
             if ($delete === null) {
                 return self::responseJson(
                     false,
-                    "No se ha podido eliminar el elemento debido a un problema",
-                    null
+                    "ERROR: La consulta para eliminar el elemento ha fallado",
+                    $delete
                 );
             } else {
                 return self::responseJson(
                     true,
-                    "Elementos eliminados correctamente",
+                    "Elemento eliminado correctamente",
                     $results
                 );
             }
         } else {
             return self::responseJson(
                 false,
-                "El elemento que desea eliminar no se encuentra en la base de datos o no se ha especificado",
+                "ERROR: El elemento que desea eliminar no se encuentra en la base de datos o no se ha especificado",
                 null
             );
         }
@@ -202,11 +194,7 @@ class Element //implements IToJson
         $database = self::connectDb();
 
         if ($database === null) {
-            return self::responseJson(
-                false,
-                "Ha fallado la conexión a la base de datos",
-                null
-            );
+            return self::connectionFailed();
         }
 
         $name = trim($this->getName()) ?? null;
@@ -256,10 +244,16 @@ class Element //implements IToJson
                 "Elemento creado correctamente",
                 $results
             );
+        } else if ($results === false) {
+            return self::responseJson(
+                false,
+                "ERROR: La consulta para crear un elemento ha fallado",
+                null
+            );
         } else {
             return self::responseJson(
                 false,
-                "Los elementos no se han podido crear, comprueba los datos introducidos",
+                "ERROR: La consulta para obtener el elemento creado ha fallado",
                 null
             );
         }
@@ -270,11 +264,7 @@ class Element //implements IToJson
         $database = self::connectDb();
 
         if ($database === null) {
-            return self::responseJson(
-                false,
-                "Ha fallado la conexión a la base de datos",
-                null
-            );
+            return self::connectionFailed();
         }
 
         $name = trim($this->getName()) ?? null;
@@ -283,8 +273,16 @@ class Element //implements IToJson
         $status = trim($this->getStatus()) ?? null;
         $priority = trim($this->getPriority()) ?? null;
 
+        if (empty($name) && empty($description) && empty($serial) && empty($status) && empty($priority)) {
+            return self::responseJson(
+                false,
+                "ERROR: No has introducido ningún valor para editar",
+                null
+            );
+        }
+
         if (empty($name)) {
-            $name = self::getQueryResult(
+            $name = self::getDbValue(
                 'SELECT nombre FROM elementos WHERE id = :id',
                 $id,
                 $database
@@ -292,7 +290,7 @@ class Element //implements IToJson
         }
 
         if (empty($description)) {
-            $description = self::getQueryResult(
+            $description = self::getDbValue(
                 'SELECT descripcion FROM elementos WHERE id = :id',
                 $id,
                 $database
@@ -300,7 +298,7 @@ class Element //implements IToJson
         }
 
         if (empty($serial)) {
-            $serial = self::getQueryResult(
+            $serial = self::getDbValue(
                 'SELECT nserie FROM elementos WHERE id = :id',
                 $id,
                 $database
@@ -308,7 +306,7 @@ class Element //implements IToJson
         }
 
         if (empty($status)) {
-            $status = self::getQueryResult(
+            $status = self::getDbValue(
                 'SELECT estado FROM elementos WHERE id = :id',
                 $id,
                 $database
@@ -330,7 +328,7 @@ class Element //implements IToJson
                 $priority = "Alta";
                 break;
             case "":
-                $priority = self::getQueryResult(
+                $priority = self::getDbValue(
                     'SELECT prioridad FROM elementos WHERE id = :id',
                     $id,
                     $database
@@ -358,10 +356,16 @@ class Element //implements IToJson
                 "Elemento modificado correctamente",
                 $results
             );
+        } else if ($results === false) {
+            return self::responseJson(
+                false,
+                "ERROR: No se ha podido modificar el elemento, comprueba los datos introducidos",
+                null
+            );
         } else {
             return self::responseJson(
                 false,
-                "Los elementos no se han podido modificar, comprueba los datos introducidos",
+                "ERROR: La consulta para obtener el elemento modificado ha fallado",
                 null
             );
         }
@@ -416,7 +420,7 @@ class Element //implements IToJson
                 $database
             );
         } catch (PDOException $e) {
-            return null;
+            return false;
         }
     }
 
@@ -447,11 +451,11 @@ class Element //implements IToJson
                 $database
             );
         } catch (PDOException $e) {
-            return null;
+            return false;
         }
     }
 
-    private static function getQueryResult($query, $id, $database)
+    private static function getDbValue($query, $id, $database)
     {
         try {
             $consulta = $database->getPdo()->prepare($query);
@@ -474,5 +478,14 @@ class Element //implements IToJson
         $results["data"] = $data;
 
         return json_encode($results, JSON_PRETTY_PRINT);
+    }
+
+    private static function connectionFailed()
+    {
+        return self::responseJson(
+            false,
+            "ERROR: Ha fallado la conexión a la base de datos",
+            null
+        );
     }
 }

@@ -26,9 +26,4 @@ class DataBase
     {
         return $this->pdo;
     }
-
-    public function closePdo()
-    {
-        $this->pdo = null;
-    }
 }
