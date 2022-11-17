@@ -37,11 +37,11 @@ function generateTable(data) {
     for (let i = 0; i < data.length; i++) {
         let row = `<tr id="row${i}" class="row">
                         <td><button id="${i}" class="button" onclick="removeRow(this)">X</button><button id="showModal" onclick="editRow(this, ${i})">Edit</button></td>
-						<td>${data[i].name}</td>
-						<td>${data[i].description}</td>
-						<td>${data[i].serial}</td>
-                        <td>${data[i].status}</td>
-                        <td>${data[i].priority}</td>
+						<td id="name${i}">${data[i].name}</td>
+						<td id="description${i}">${data[i].description}</td>
+						<td id="serial${i}">${data[i].serial}</td>
+                        <td id="status${i}">${data[i].status}</td>
+                        <td id="priority${i}">${data[i].priority}</td>
 					</tr>`;
         table.innerHTML += row;
     }
@@ -55,25 +55,16 @@ function removeRow(button) {
 }
 
 function editRow(button, number) {
-
-    //Abrir el modal del formulario
-
-    const formModal = document.querySelector('.form-modal');
-
-    formModal.classList.add('mostrar');
-
-    // Botón X para el formulario
-
+    const formModal = document.querySelector('#formModal');
     const closeBtn = document.querySelector('#closeBtn');
 
-    // Evento para cerrar con el botón X
-    closeBtn.addEventListener('click', () => {
-        formModal.classList.remove('mostrar');
-    });
-
-    // Fila padre del botón edit
-
     selectedRow = button.parentElement.parentElement;
+
+    formModal.classList.add('showModal');
+
+    closeBtn.addEventListener('click', () => {
+        formModal.classList.remove('showModal');
+    });
 
     // Valores al abrir el formulario
     objectArray[number].name = selectedRow.cells[1].innerHTML;
@@ -85,6 +76,7 @@ function editRow(button, number) {
     document.getElementById("serial").value = objectArray[number].serial;
 
     const active = document.getElementById('status');
+
     if (selectedRow.cells[4].innerHTML === 'Activo') {
         objectArray[number].status = 'Activo';
         active.checked = true;
@@ -97,24 +89,20 @@ function editRow(button, number) {
     const medium = document.getElementById('medium');
     const high = document.getElementById('high');
 
+    low.checked = false;
+    medium.checked = false;
+    high.checked = false;
+
     if (selectedRow.cells[5].innerHTML === 'Alta') {
         objectArray[number].priority = 'Alta';
         high.checked = true;
-        medium.checked = false;
-        low.checked = false;
     } else if (selectedRow.cells[5].innerHTML === 'Media') {
         objectArray[number].priority = 'Media';
-        high.checked = false;
         medium.checked = true;
-        low.checked = false;
     } else if (selectedRow.cells[5].innerHTML === 'Baja') {
         objectArray[number].priority = 'Baja';
-        high.checked = false;
-        medium.checked = false;
         low.checked = true;
     }
-
-    // Botón guardar del formulario
 
     const saveData = document.querySelector('#saveData');
 
@@ -139,20 +127,20 @@ function editRow(button, number) {
         }
 
         if (low.checked) {
-            objectArray[number].priority = 'Bajo';
+            objectArray[number].priority = 'Baja';
             selectedRow.cells[5].innerHTML = objectArray[number].priority;
         } else if (medium.checked) {
-            objectArray[number].priority = 'Medio';
+            objectArray[number].priority = 'Media';
             selectedRow.cells[5].innerHTML = objectArray[number].priority;
         } else if (high.checked) {
-            objectArray[number].priority = 'Alto';
+            objectArray[number].priority = 'Alta';
             selectedRow.cells[5].innerHTML = objectArray[number].priority;
         } else {
-            objectArray[number].priority = 'Bajo';
+            objectArray[number].priority = 'Baja';
             selectedRow.cells[5].innerHTML = objectArray[number].priority;
         }
 
-        formModal.classList.remove('mostrar');
+        formModal.classList.remove('showModal');
     });
 }
 

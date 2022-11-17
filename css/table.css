@@ -82,7 +82,7 @@ tr td {
     color: white;
 }
 
-.form-modal {
+#formModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -97,13 +97,13 @@ tr td {
     align-items: center;
 }
 
-.form-modal.mostrar {
+#formModal.showModal {
     background-color: black;
     z-index: 1;
     opacity: 0.9;
 }
 
-.form-modal .modal {
+#formModal .modal {
     width: 100%;
     display: flex;
     flex-direction: column;

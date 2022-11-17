@@ -9,21 +9,7 @@ function insertHtmlFetch() {
         .then((html) => {
             const figure = document.getElementById('figure');
             figure.insertAdjacentHTML('afterend', html);
-            const item = document.getElementsByClassName('item');
-
-            if (window.location.href.includes('form')) {
-                item[0].id = 'formItem';
-            } else if (window.location.href.includes('table')) {
-                item[1].id = 'tableItem';
-            } else if (window.location.href.includes('gallery')) {
-                item[2].id = 'galleryItem';
-            } else if (window.location.href.includes('definition')) {
-                item[3].id = 'definitionItem';
-            } else if (window.location.href.includes('aboutus')) {
-                item[4].id = 'aboutusItem';
-            } else {
-                console.log('La ruta que intenta acceder no es correcta');
-            }
+            checkNavElement();
         });
 };
 
@@ -35,21 +21,23 @@ function insertHtmlXml() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             const figure = document.getElementById('figure');
             figure.insertAdjacentHTML('afterend', xhr.responseText);
-            const item = document.getElementsByClassName('item');
-
-            if (window.location.href.includes('form')) {
-                item[0].id = 'formItem';
-            } else if (window.location.href.includes('table')) {
-                item[1].id = 'tableItem';
-            } else if (window.location.href.includes('gallery')) {
-                item[2].id = 'galleryItem';
-            } else if (window.location.href.includes('definition')) {
-                item[3].id = 'definitionItem';
-            } else if (window.location.href.includes('aboutus')) {
-                item[4].id = 'aboutusItem';
-            } else {
-                console.log('La ruta que intenta acceder no es correcta');
-            }
+            checkNavElement();
         }
+    }
+}
+
+function checkNavElement() {
+    const item = document.getElementsByClassName('item');
+
+    if (window.location.href.includes('form')) {
+        item[0].id = 'formItem';
+    } else if (window.location.href.includes('table')) {
+        item[1].id = 'tableItem';
+    } else if (window.location.href.includes('gallery')) {
+        item[2].id = 'galleryItem';
+    } else if (window.location.href.includes('definition')) {
+        item[3].id = 'definitionItem';
+    } else if (window.location.href.includes('aboutus')) {
+        item[4].id = 'aboutusItem';
     }
 }
