@@ -58,7 +58,7 @@ function editRow(button, number) {
     const formModal = document.querySelector('#formModal');
     const closeBtn = document.querySelector('#closeBtn');
 
-    selectedRow = button.parentElement.parentElement;
+    const selectedRow = button.parentElement.parentElement;
 
     formModal.classList.add('showModal');
 

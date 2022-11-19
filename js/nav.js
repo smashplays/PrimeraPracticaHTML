@@ -30,14 +30,19 @@ function checkNavElement() {
     const item = document.getElementsByClassName('item');
 
     if (window.location.href.includes('form')) {
-        item[0].id = 'formItem';
+        const form = document.getElementById('formItem');
+        form.style = 'background-color: white;';
     } else if (window.location.href.includes('table')) {
-        item[1].id = 'tableItem';
+        const table = document.getElementById('tableItem');
+        table.style = 'background-color: white;';
     } else if (window.location.href.includes('gallery')) {
-        item[2].id = 'galleryItem';
+        const gallery = document.getElementById('galleryItem');
+        gallery.style = 'background-color: white;';
     } else if (window.location.href.includes('definition')) {
-        item[3].id = 'definitionItem';
+        const definition = document.getElementById('definitionItem');
+        definition.style = 'background-color: white;';
     } else if (window.location.href.includes('aboutus')) {
-        item[4].id = 'aboutusItem';
+        const about_us = document.getElementById('aboutUsItem');
+        about_us.style = 'background-color: white;';
     }
 }
