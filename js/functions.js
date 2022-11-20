@@ -36,8 +36,8 @@ function generateTable(data) {
     deleteTable();
     const table = document.querySelector('tbody');
     for (let i = 0; i < data.length; i++) {
-        let row = `<tr id="row${i}" class="row">
-                        <td><button id="${i}" class="button" onclick="removeRow(${i})">X</button><button id="showModal" onclick="editRow(this, ${i})">Edit</button></td>
+        let row = `<tr id="${i}" class="row">
+                        <td><button class="button" onclick="removeRow(${i})">X</button><button id="showModal" onclick="editRow(this)">Edit</button></td>
 						<td id="name${i}">${data[i].name}</td>
 						<td id="description${i}">${data[i].description}</td>
 						<td id="serial${i}">${data[i].serial}</td>
@@ -50,7 +50,7 @@ function generateTable(data) {
 
 
 function removeRow(button) {
-    const row = document.getElementById('row' + button);
+    const row = document.getElementById(button);
     row.remove();
 }
 
@@ -78,7 +78,7 @@ function filterTable() {
     }
 }
 
-function editRow(button, number) {
+function editRow(button) {
     const formModal = document.querySelector('#formModal');
     const closeBtn = document.querySelector('#closeBtn');
 
@@ -92,13 +92,13 @@ function editRow(button, number) {
 
     // Valores al abrir el formulario
 
-    document.getElementById("name").value = objectArray[number].name;
-    document.getElementById("description").value = objectArray[number].description;
-    document.getElementById("serial").value = objectArray[number].serial;
+    document.getElementById("name").value = objectArray[selectedRow.id].name;
+    document.getElementById("description").value = objectArray[selectedRow.id].description;
+    document.getElementById("serial").value = objectArray[selectedRow.id].serial;
 
     const active = document.getElementById('status');
 
-    if (objectArray[number].status === 'Activo') {
+    if (objectArray[selectedRow.id].status === 'Activo') {
         active.checked = true;
     } else {
         active.checked = false;
@@ -112,11 +112,11 @@ function editRow(button, number) {
     medium.checked = false;
     high.checked = false;
 
-    if (objectArray[number].priority === 'Alta') {
+    if (objectArray[selectedRow.id].priority === 'Alta') {
         high.checked = true;
-    } else if (objectArray[number].priority === 'Media') {
+    } else if (objectArray[selectedRow.id].priority === 'Media') {
         medium.checked = true;
-    } else if (objectArray[number].priority === 'Baja') {
+    } else if (objectArray[selectedRow.id].priority === 'Baja') {
         low.checked = true;
     }
 
@@ -146,11 +146,11 @@ function editRow(button, number) {
             selectedRow.cells[5].innerText = 'Baja';
         }
 
-        objectArray[number].name = selectedRow.cells[1].innerText;
-        objectArray[number].description = selectedRow.cells[2].innerText;
-        objectArray[number].serial = selectedRow.cells[3].innerText;
-        objectArray[number].status = selectedRow.cells[4].innerText;
-        objectArray[number].priority = selectedRow.cells[5].innerText;
+        objectArray[selectedRow.id].name = selectedRow.cells[1].innerText;
+        objectArray[selectedRow.id].description = selectedRow.cells[2].innerText;
+        objectArray[selectedRow.id].serial = selectedRow.cells[3].innerText;
+        objectArray[selectedRow.id].status = selectedRow.cells[4].innerText;
+        objectArray[selectedRow.id].priority = selectedRow.cells[5].innerText;
 
         formModal.classList.remove('showModal');
     });
