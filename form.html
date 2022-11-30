@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/form.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Formulario Maquinaria Industrial</title>
   </head>
   <body>
@@ -18,7 +19,7 @@
     <h1>Formulario Maquinaria Industrial</h1>
 
     <div id="pageContent">
-      <form method="POST" action="ws/createElement2.php">
+      <form id="form">
         <div>
           <input
             type="text"
@@ -49,7 +50,7 @@
 
         <div id="statusBox">
           <label for="status"><span class="activeBold">Activo:</span></label>
-          <input type="checkbox" name="status" id="status" value="active" />
+          <input type="checkbox" name="status" id="status" value="Activo" />
         </div>
 
         <div id="priorityBox">
@@ -58,7 +59,7 @@
           >
           <div>
             <div>
-              <input type="radio" id="priority" name="priority" value="high" />
+              <input type="radio" id="priority" name="priority" value="Alta" />
               <label for="high" id="high">Alta</label>
             </div>
             <div>
@@ -66,22 +67,23 @@
                 type="radio"
                 id="priority"
                 name="priority"
-                value="medium"
+                value="Media"
               />
               <label for="medium" id="medium">Media</label>
             </div>
             <div>
-              <input type="radio" id="priority" name="priority" value="low" />
+              <input type="radio" id="priority" name="priority" value="Baja" />
               <label for="low" id="low">Baja</label>
             </div>
           </div>
         </div>
 
         <div>
-          <input type="submit" value="Enviar" id="submit" />
+          <input type="submit" id="submit" value="Enviar">
         </div>
       </form>
     </div>
     <footer id="footer">&copy; Jesús Terrés Hernández 2ºDAW</footer>
+    <script src="./js/create.js"></script>
   </body>
 </html>

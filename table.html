@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/table.css" />
     <script src="./js/functions.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Tabla de elementos industriales</title>
   </head>
   <body>
@@ -21,13 +22,13 @@
     <h1>Tabla de elementos industriales</h1>
 
     <div id="pageContent">
-      <input
+      <!-- <input
         type="text"
         name="filter"
         id="filter"
         placeholder="Filtrar"
         onkeyup="filterTable()"
-      />
+      /> -->
       <table id="table">
         <tr>
           <th>Acciones</th>
@@ -45,7 +46,7 @@
         <button id="closeBtn">X</button>
         <h2>EDITAR TABLA</h2>
 
-        <form>
+        <form id="form">
           <div>
             <input
               type="text"
@@ -76,7 +77,7 @@
 
           <div id="statusBox">
             <label for="status"><span class="activeBold">Activo:</span></label>
-            <input type="checkbox" name="status" id="status" />
+            <input type="checkbox" name="status" id="status" value="Activo" />
           </div>
 
           <div id="priorityBox">
@@ -85,21 +86,36 @@
             >
             <div>
               <div>
-                <input type="radio" id="high" name="priority" />
+                <input
+                  type="radio"
+                  id="high"
+                  name="priority"
+                  value="Alta"
+                />
                 <label for="high">Alta</label>
               </div>
               <div>
-                <input type="radio" id="medium" name="priority" />
+                <input
+                  type="radio"
+                  id="medium"
+                  name="priority"
+                  value="Media"
+                />
                 <label for="medium">Media</label>
               </div>
               <div>
-                <input type="radio" id="low" name="priority" />
+                <input
+                  type="radio"
+                  id="low"
+                  name="priority"
+                  value="Baja"
+                />
                 <label for="low">Baja</label>
               </div>
             </div>
           </div>
           <div>
-            <input class="btn" type="button" id="saveData" value="Guardar" />
+            <input class="btn" type="submit" id="saveData" value="Guardar" />
           </div>
         </form>
       </div>

@@ -1,28 +1,5 @@
-const objectArray = [{
-        "name": "Control de humo",
-        "description": "Los sensores de humo son capaces de detectar el humo de un lugar a tiempo",
-        "serial": "1582",
-        "status": "Activo",
-        "priority": "Alta"
-    },
-    {
-        "name": "Medidor de presión",
-        "description": "Los sensores medidores de presión son muy utilizados en el sector agricola para conocer, por ejemplo el flujo de agua de un lugar y para enviar una notificación a los equipos responsables cuando algo necesite ser corregido ",
-        "serial": "1978",
-        "status": "Inactivo",
-        "priority": "Media"
-    },
-    {
-        "name": "Control de la humedad",
-        "description": "Permiten tener controlados factores como el clima o el almacenamiento de productos perecederos",
-        "serial": "1956",
-        "status": "Activo",
-        "priority": "Alta"
-    }
-];
-
 addEventListener('load', () => {
-    generateTable(objectArray);
+    generateTable();
 });
 
 function deleteTable() {
@@ -32,53 +9,53 @@ function deleteTable() {
     }
 }
 
-function generateTable(data) {
+function generateTable() {
     deleteTable();
     const table = document.querySelector('tbody');
-    for (let i = 0; i < data.length; i++) {
-        let row = `<tr id="${i}" class="row">
-                        <td><button class="button" onclick="removeRow(${i})">X</button><button id="showModal" onclick="editRow(this)">Edit</button></td>
-						<td id="name${i}">${data[i].name}</td>
-						<td id="description${i}">${data[i].description}</td>
-						<td id="serial${i}">${data[i].serial}</td>
-                        <td id="status${i}">${data[i].status}</td>
-                        <td id="priority${i}">${data[i].priority}</td>
-					</tr>`;
-        table.innerHTML += row;
-    }
-}
-
-
-function removeRow(button) {
-    const row = document.getElementById(button);
-    row.remove();
-}
-
-function filterTable() {
-    const filter = document.getElementById('filter');
-    const search = filter.value.toLowerCase();
-
-    if (search.length >= 3) {
-        const filteredObjects = objectArray.filter((data) => {
-            return (
-                data.name.toLowerCase().includes(search) ||
-
-                data.description.toLowerCase().includes(search) ||
-
-                data.serial.toLowerCase().includes(search) ||
-
-                data.status.toLowerCase().includes(search) ||
-
-                data.priority.toLowerCase().includes(search)
-            );
+    fetch('ws/getElement.php')
+        .then((response) => response.json())
+        .then((row) => {
+            for (let i = 0; i < row.data.length; i++) {
+                let rows = `<tr id="${i}" class="row">
+                                <td><button class="button" onclick="removeRow(${row.data[i].id})">X</button><button id="showModal" onclick="editRow(this, ${row.data[i].id})">Edit</button></td>
+            					<td id="name${i}">${row.data[i].nombre}</td>
+            					<td id="description${i}">${row.data[i].descripcion}</td>
+            					<td id="serial${i}">${row.data[i].nserie}</td>
+                                <td id="status${i}">${row.data[i].estado}</td>
+                                <td id="priority${i}">${row.data[i].prioridad}</td>
+            				</tr>`;
+                table.innerHTML += rows;
+            }
         });
-        generateTable(filteredObjects);
-    } else {
-        generateTable(objectArray);
-    }
 }
 
-function editRow(button) {
+
+function removeRow(id) {
+    Swal.fire({
+        title: '¿Seguro que quieres eliminar el elemento?',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            removeFetch(id);
+        }
+    });
+}
+
+function removeFetch(id) {
+    fetch('ws/deleteElement.php/?id=' + id)
+        .then((response) => response.json())
+        .then((removed) => {
+            if (removed.success) {
+                generateTable();
+                Swal.fire('Elemento eliminado correctamente', '', 'success');
+            } else {
+                Swal.fire('El elemento no ha podido ser eliminado debido a un error', '', 'error');
+            }
+        });
+}
+
+function editRow(button, id) {
     const formModal = document.querySelector('#formModal');
     const closeBtn = document.querySelector('#closeBtn');
 
@@ -92,13 +69,13 @@ function editRow(button) {
 
     // Valores al abrir el formulario
 
-    document.getElementById("name").value = objectArray[selectedRow.id].name;
-    document.getElementById("description").value = objectArray[selectedRow.id].description;
-    document.getElementById("serial").value = objectArray[selectedRow.id].serial;
+    document.getElementById("name").value = selectedRow.cells[1].innerText;
+    document.getElementById("description").value = selectedRow.cells[2].innerText;
+    document.getElementById("serial").value = selectedRow.cells[3].innerText;
 
     const active = document.getElementById('status');
 
-    if (objectArray[selectedRow.id].status === 'Activo') {
+    if (selectedRow.cells[4].innerText.toLowerCase() === 'activo') {
         active.checked = true;
     } else {
         active.checked = false;
@@ -112,46 +89,74 @@ function editRow(button) {
     medium.checked = false;
     high.checked = false;
 
-    if (objectArray[selectedRow.id].priority === 'Alta') {
+    if (selectedRow.cells[5].innerText.toLowerCase() === 'alta') {
         high.checked = true;
-    } else if (objectArray[selectedRow.id].priority === 'Media') {
+    } else if (selectedRow.cells[5].innerText.toLowerCase() === 'media') {
         medium.checked = true;
-    } else if (objectArray[selectedRow.id].priority === 'Baja') {
+    } else if (selectedRow.cells[5].innerText.toLowerCase() === 'baja') {
         low.checked = true;
     }
 
-    const saveData = document.querySelector('#saveData');
+    const form = document.getElementById('form');
 
     // Evento tras guardar los datos
-    saveData.addEventListener('click', () => {
+    form.addEventListener('submit', (e) => {
 
-        // Asignamos los valores del formulario al objeto y luego metemos esos valores a las celdas de la tabla
-        selectedRow.cells[1].innerText = document.getElementById("name").value;
-        selectedRow.cells[2].innerText = document.getElementById("description").value;
-        selectedRow.cells[3].innerText = document.getElementById("serial").value;
+        e.preventDefault();
 
-        if (active.checked) {
-            selectedRow.cells[4].innerText = 'Activo';
-        } else {
-            selectedRow.cells[4].innerText = 'Inactivo';
-        }
-
-        if (low.checked) {
-            selectedRow.cells[5].innerText = 'Baja';
-        } else if (medium.checked) {
-            selectedRow.cells[5].innerText = 'Media';
-        } else if (high.checked) {
-            selectedRow.cells[5].innerText = 'Alta';
-        } else {
-            selectedRow.cells[5].innerText = 'Baja';
-        }
-
-        objectArray[selectedRow.id].name = selectedRow.cells[1].innerText;
-        objectArray[selectedRow.id].description = selectedRow.cells[2].innerText;
-        objectArray[selectedRow.id].serial = selectedRow.cells[3].innerText;
-        objectArray[selectedRow.id].status = selectedRow.cells[4].innerText;
-        objectArray[selectedRow.id].priority = selectedRow.cells[5].innerText;
-
-        formModal.classList.remove('showModal');
+        Swal.fire({
+            title: '¿Seguro que quieres guardar el elemento?',
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                saveFetch(form, id);
+                formModal.classList.remove('showModal');
+            }
+        })
     });
 }
+
+function saveFetch(form, id) {
+
+    let data = new FormData(form);
+
+    fetch('ws/modifyElement.php?id=' + id, {
+            method: 'POST',
+            body: data
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.success) {
+                generateTable();
+                Swal.fire('Elemento guardado correctamente', '', 'success');
+            } else {
+                Swal.fire('El elemento no ha podido ser modificado debido a un error', '', 'error');
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+// function filterTable() {
+//     const filter = document.getElementById('filter');
+//     const search = filter.value.toLowerCase();
+
+//     if (search.length >= 3) {
+//         const filteredObjects = objectArray.filter((data) => {
+//             return (
+//                 data.name.toLowerCase().includes(search) ||
+
+//                 data.description.toLowerCase().includes(search) ||
+
+//                 data.serial.toLowerCase().includes(search) ||
+
+//                 data.status.toLowerCase().includes(search) ||
+
+//                 data.priority.toLowerCase().includes(search)
+//             );
+//         });
+//         generateTable(filteredObjects);
+//     } else {
+//         generateTable(objectArray);
+//     }
+// }

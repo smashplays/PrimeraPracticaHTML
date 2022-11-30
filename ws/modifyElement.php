@@ -14,6 +14,3 @@ $element = new Element(
 );
 
 echo $element->save($id);
-
-$element->setName('Modificado6');
-echo $element->save($id);

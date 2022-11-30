@@ -104,13 +104,13 @@ class Element //implements IToJson
 
         if ($id !== null) {
             $results = self::prepareAndExecuteGet(
-                'SELECT nombre, descripcion, nserie, estado, prioridad FROM elementos WHERE id = :id',
+                'SELECT * FROM elementos WHERE id = :id',
                 $id,
                 $database
             );
         } else {
             $results = self::query(
-                'SELECT nombre, descripcion, nserie, estado, prioridad FROM elementos',
+                'SELECT * FROM elementos',
                 $database
             );
         }
@@ -198,10 +198,10 @@ class Element //implements IToJson
         }
 
         $name = trim($this->getName()) ?? null;
-        $description = trim($this->getDescription()) ?? "Ejemplo Descripcion";
-        $serial = trim($this->getSerial()) ?? "0";
-        $status = trim($this->getStatus()) ?? 'Inactivo';
-        $priority = trim($this->getPriority()) ?? 'Baja';
+        $description = trim($this->getDescription()) ?? null;
+        $serial = trim($this->getSerial()) ?? null;
+        $status = trim($this->getStatus()) ?? null;
+        $priority = trim($this->getPriority()) ?? null;
 
         if (empty($name)) {
             $name = "Nombre indefinido";
@@ -305,7 +305,7 @@ class Element //implements IToJson
             );
         }
 
-        if (empty($status)) {
+        if ($status === null) {
             $status = self::getDbValue(
                 'SELECT estado FROM elementos WHERE id = :id',
                 $id,
