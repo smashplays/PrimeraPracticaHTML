@@ -35,6 +35,7 @@ function removeRow(id) {
         title: '¿Seguro que quieres eliminar el elemento?',
         showCancelButton: true,
         confirmButtonText: 'Eliminar',
+        icon: 'question'
     }).then((result) => {
         if (result.isConfirmed) {
             removeFetch(id);
@@ -108,6 +109,7 @@ function editRow(button, id) {
             title: '¿Seguro que quieres guardar el elemento?',
             showCancelButton: true,
             confirmButtonText: 'Guardar',
+            icon: 'question'
         }).then((result) => {
             if (result.isConfirmed) {
                 saveFetch(form, id);

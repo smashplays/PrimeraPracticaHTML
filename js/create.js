@@ -6,6 +6,7 @@ form.addEventListener('submit', (e) => {
         title: '¿Seguro que quieres crear el elemento?',
         showCancelButton: true,
         confirmButtonText: 'Crear',
+        icon: 'question'
     }).then((result) => {
         if (result.isConfirmed) {
             createFetch();
