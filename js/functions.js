@@ -135,8 +135,7 @@ function saveFetch(form, id) {
             } else {
                 Swal.fire('El elemento no ha podido ser modificado debido a un error', '', 'error');
             }
-        })
-        .catch(error => console.log(error));
+        });
 }
 
 // function filterTable() {
